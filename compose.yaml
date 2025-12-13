@@ -15,6 +15,7 @@ x-restart: &restart
 services:
   mysqlneto:
     image: mariadb:10.6.4-focal
+    networks: ["NetoNet"]
     <<: [*deploy-dev, *env_file, *restart]
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -28,4 +29,12 @@ services:
       context: .
       dockerfile: Dockerfile.python
     depends_on: ["mysqlneto"]
+    networks: ["NetoNet"]
     <<: [*restart]
+
+networks:
+  NetoNet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

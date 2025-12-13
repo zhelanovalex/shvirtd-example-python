@@ -16,7 +16,7 @@ services:
   mysqlneto:
     image: mariadb:10.6.4-focal
     networks: ["backend"]
-    <<: [*deploy-dev, *env_file, *restart]
+    <<: [*env_file, *restart]
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}

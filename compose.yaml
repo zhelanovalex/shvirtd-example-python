@@ -11,7 +11,7 @@ x-env_file: &env_file
   env_file:
     - .env
 x-restart: &restart
-  restart: always #no, on-failure , always(default), unless-stopped 
+  restart: always
 
 services:
   mysqlneto:

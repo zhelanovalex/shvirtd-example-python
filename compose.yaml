@@ -1,0 +1,30 @@
+version: "3"
+x-deploy: &deploy-dev
+  deploy:
+    resources:
+      limits:
+        cpus: "1"
+        memory: 512M
+      reservations:
+        memory: 256M
+x-env_file: &env_file
+  env_file:
+    - .env
+x-restart: &restart
+  restart: always #no, on-failure , always(default), unless-stopped 
+
+services:
+  mysqlneto:
+    image: mariadb:10.6.4-focal
+    <<: [*deploy-dev, *env_file, *restart]
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_HOST="%" 
+
+  pythonmap:
+    depends_on: ["mysqlneto"]
+    image: pythonmap:latest 
+    <<: [*restart]

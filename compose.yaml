@@ -36,11 +36,11 @@ services:
         ipv4_address: 172.20.0.5
     <<: [*env_file, *restart]
     environment:
-      - DB_HOST="172.20.0.10"
+      - DB_HOST=172.20.0.10
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
-      
+
 networks:
   backend:
     driver: bridge

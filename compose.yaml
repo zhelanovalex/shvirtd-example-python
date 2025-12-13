@@ -29,5 +29,4 @@ services:
       context: .
       dockerfile: Dockerfile.python
     depends_on: ["mysqlneto"]
-    image: pythonmap:latest 
     <<: [*restart]

@@ -25,6 +25,9 @@ services:
       - MYSQL_ROOT_HOST="%" 
 
   pythonmap:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
     depends_on: ["mysqlneto"]
     image: pythonmap:latest 
     <<: [*restart]

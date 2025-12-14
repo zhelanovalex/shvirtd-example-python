@@ -7,3 +7,4 @@ schema.pdf
 requarements.txt
 *.md
 LICENSE
+.env

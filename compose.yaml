@@ -10,7 +10,7 @@ services:
     networks:
       backend:
         ipv4_address: 172.20.0.10
-        environment:
+    environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
@@ -29,7 +29,7 @@ services:
     networks:
       backend:
         ipv4_address: 172.20.0.5
-        environment:
+    environment:
       - DB_HOST=172.20.0.10
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}

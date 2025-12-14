@@ -1,48 +1,40 @@
-version: '3'
 include:
   - /DOCKER_TEST/ZhelanovNeto/proxy.yaml
-x-deploy: &deploy-dev
-  deploy:
-    resources:
-      limits:
-        cpus: "1"
-        memory: 512M
-      reservations:
-        memory: 256M
-x-env_file: &env_file
-  env_file:
-    - .env
-x-restart: &restart
-  restart: always
-
 services:
   mysqlneto:
     image: mariadb:10.6.4-focal
+    container_name: mysqlneto
+    restart: always
+    env_file:
+      - .env
     networks:
       backend:
         ipv4_address: 172.20.0.10
-    <<: [*env_file, *restart]
-    environment:
+        environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_HOST="%"
+      - MYSQL_ROOT_HOST=%
 
   pythonmap:
     build:
       context: .
       dockerfile: Dockerfile.python
     depends_on: ["mysqlneto"]
+    container_name: pythonmap
+    restart: always
+    env_file:
+      - .env
     networks:
       backend:
         ipv4_address: 172.20.0.5
-    <<: [*env_file, *restart]
-    environment:
+        environment:
       - DB_HOST=172.20.0.10
       - DB_NAME=${MYSQL_DATABASE}
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DOCKER_TLS_VERIFY=0
 
 networks:
   backend:

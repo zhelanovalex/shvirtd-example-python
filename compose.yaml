@@ -1,5 +1,6 @@
 include:
   - /DOCKER_TEST/ZhelanovNeto/proxy.yaml
+  -
 services:
   mysqlneto:
     image: mariadb:10.6.4-focal

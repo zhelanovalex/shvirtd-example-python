@@ -16,13 +16,19 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_HOST=%
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
-  pythonmap:
-    build:
-      context: .
-      dockerfile: Dockerfile.python
-    depends_on: ["mysqlneto"]
-    container_name: pythonmap
+  webneto:
+    image: pythonmap:1.0.0
+    container_name: webneto
+    depends_on:
+      mysqlneto:
+        condition: service_healthy
     restart: always
     env_file:
       - .env

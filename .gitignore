@@ -1,10 +1,1 @@
 .idea
-haproxy
-nginx
-main.py
-proxy.yaml
-schema.pdf
-requarements.txt
-*.md
-LICENSE
-.env

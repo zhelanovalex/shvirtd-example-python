@@ -2,7 +2,7 @@ include:
   - /DOCKER_TEST/ZhelanovNeto/proxy.yaml
 services:
   mysqlneto:
-    image: mariadb:10.6.4-focal
+    image: mysql:8
     container_name: mysqlneto
     restart: always
     env_file:
@@ -21,10 +21,11 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-      start_period: 30s
+      start_period: 120s
+      start_interval: 120s
 
   webneto:
-    image: pythonmap:1.0.0
+    image: cr.yandex/crpfr9l1hk52tg18nrij/pythonmap:1.1.1
     container_name: webneto
     depends_on:
       mysqlneto:
